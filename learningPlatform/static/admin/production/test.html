@@ -1,0 +1,94 @@
+<!DOCTYPE html>
+<html>
+<head>
+	<title></title>
+	<head>
+<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.4.0/jquery.min.js"></script>
+</head>
+</head>
+<body>
+<div class="item form-group">
+                      <label class="control-label col-md-3 col-sm-3 col-xs-12" for="title">Search wiki: <span class="required">*</span>
+                      </label>
+                      <div class="col-md-6 col-sm-6 col-xs-12">
+                        <input id="search_wiki"  class="form-control  col-md-7 col-xs-12"  name="search_wike" placeholder="Enter your text to search for" required="required" type="text">
+                      </div>
+                    </div>
+                    <div>
+                    <div class="control-label col-md-3 col-sm-3 col-xs-12"></div>
+                    <div class="wiki_reulst  col-md-7 col-xs-12" id="wiki_result">
+                            <div class="rowcustom" >
+                              <input type="checkbox" id="checkbox1"/>
+                              <span id="textvalue1" >The first value</span>
+                              <input type="hidden" value="www.google.com"/>
+                            </div>
+                      </div>
+                    </div>
+
+	
+<script>
+  // alert("The text has been changed.");
+  // $('#search_wiki').val('xxx');
+  //
+//   var response = {
+//           "searchinfo": {
+//                 "search": "martten"
+//               },
+//         "search": [
+//           {
+//             "concepturi": "http://www.wikidata.org/entity/Q938079",
+//             "label": "test value 1"
+//           },
+//             {
+//               "concepturi": "http://www.wikidata.org/entity/Q938079",
+//               "label": "test value 2"
+//             },
+//             {
+//               "concepturi": "http://www.wikidata.org/entity/Q938079",
+//               "label": "test value 3"
+//             },
+//             {
+//               "concepturi": "http://www.wikidata.org/entity/Q938079",
+//               "label": "test value 4"
+//             },
+//             {
+//               "concepturi": "http://www.wikidata.org/entity/Q938079",
+//               "label": "test value 5"
+//             }
+//         ],
+//         "success": 1
+// }
+$('#search_wiki').on('input',function(e){
+
+//   $("#wiki_result").empty();
+//   for(var i = 0, len = response.search.length; i < len; i++){
+//     if(i>4){break;}
+//     var v = response.search[i].label;
+//     var h = response.search[i].concepturi;
+//     $("#wiki_result").append('<div class="rowcustom" ><input type="checkbox" id="checkbox'+i+'" name="checkbox'+i+'"/><span id="textvalue'+i+'"  name="textvalue'+i+'" >'+v+'</span><input id="urlValue'+i+'"  name="urlValue'+i+'" type="hidden" value="'+h+'"/></div>');
+
+//   }
+
+  $.ajax({
+    url: "https://www.wikidata.org/w/api.php?action=wbsearchentities&search=martten&language=en&format=json",
+    context: document.body
+  })
+  .done(function() {
+    //  var textValue = $('#search_wiki').val();
+      // console.log("textValue");
+      alert('Finished ');
+  })
+  // .fail(function(xhr, status, error) {
+  
+  //   alert('fail ');
+  //     //Ajax request failed.
+  //     });
+
+});
+  // $('#search_wiki').change(function(){
+  //   alert("The text has been changed.");
+  // });
+  // $( "#search_wiki" ).trigger( "click" );
+</script>
+</body>
+</html>

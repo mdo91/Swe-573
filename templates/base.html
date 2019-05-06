@@ -1,0 +1,78 @@
+
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+    <meta name="description" content="">
+    <meta name="author" content="">
+    <link rel="icon" href="../../../../favicon.ico">
+
+    <title>Learning Journey</title>
+
+    <!-- Bootstrap core CSS -->
+    <link href="https://getbootstrap.com/docs/4.1/dist/css/bootstrap.min.css" rel="stylesheet">
+
+    <!-- Custom styles for this template -->
+    <link href="album.css" rel="stylesheet">
+  </head>
+
+  <body>
+
+    <header>
+      <nav class="navbar navbar-expand-lg navbar-light bg-light">
+        <div class="container">
+
+
+  <a class="navbar-brand" href="{% url 'home'%}">Learning Journey</a>
+  <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
+    <span class="navbar-toggler-icon"></span>
+  </button>
+
+  <div class="collapse navbar-collapse" id="navbarSupportedContent">
+
+    <ul class="navbar-nav mr-auto">
+    <!-- <a class="nav-item nav-link" href="#">test</a> -->
+    </ul>
+    <ul class="navbar-nav ml-auto">
+      {%if user.is_authenticated%}
+
+      <a class="nav-item nav-link" href="javaScript: {document.getElementById('logout').submit()}">Logout</a>
+      <a class="nav-item nav-link" href="{%url 'create' %}"> <button class="btn btn-primary"type="button" name="button">Create Course</button> </a>
+      <form  id="logout"class="" action="{%url 'logout'%}" method="POST">
+        {% csrf_token %}
+        <input  type="hidden">
+      </form>
+      {%else%}
+    <a class="nav-item nav-link" href="{% url 'signup'%}">SignUp</a>
+    <a class="nav-item nav-link" href="{% url 'login'%}">Login</a>
+     {%endif%}
+
+    </ul>
+  </div>
+  </div>
+</nav>
+    </header>
+<div class="container">
+  {% block content %}
+  {% endblock %}
+</div>
+<footer class="text-muted">
+      <div class="container">
+        <p class="float-right">
+          <a href="#">Back to top</a>
+        </p>
+        <p> &copy;</p>
+          </div>
+    </footer>
+
+    <!-- Bootstrap core JavaScript
+    ================================================== -->
+    <!-- Placed at the end of the document so the pages load faster -->
+    <script src="https://code.jquery.com/jquery-3.3.1.slim.min.js" integrity="sha384-q8i/X+965DzO0rT7abK41JStQIAqVgRVzpbzo5smXKp4YfRvH+8abtTE1Pi6jizo" crossorigin="anonymous"></script>
+    <script>window.jQuery || document.write('<script src="../../assets/js/vendor/jquery-slim.min.js"><\/script>')</script>
+    <script src="https://getbootstrap.com/docs/4.1/assets/js/vendor/popper.min.js"></script>
+    <script src="https://getbootstrap.com/docs/4.1/dist/js/bootstrap.min.js"></script>
+    <script src="https://getbootstrap.com/docs/4.1/assets/js/vendor/holder.min.js"></script>
+  </body>
+</html>

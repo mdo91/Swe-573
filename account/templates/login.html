@@ -1,0 +1,32 @@
+{% extends 'base.html' %}
+{% block content %}
+<h1>Login!</h1>
+<div class="container-fluid ">
+  {% if error %}
+  {{error}}
+  {% endif %}
+  {%if method%}
+  {{method}}
+  {%endif%}
+  <div class="row">
+    <div class="col-md-8">
+
+    </div>
+  <div class="col-md-4">
+    <form class="" action="{% url 'login' %}" method="POST">
+      {% csrf_token %}
+      Username:
+      <br/>
+      <input type="text" class="form-control" name="username" >
+      <br/>
+      Password:
+      <br/>
+      <input type="password" class="form-control" name="password" ">
+      <br/>
+      <br/>
+      <input class="btn btn-success btn-block btn-md" type="submit" name="login" value="submit">
+    </form>
+  </div>
+  </div>
+</div>
+{% endblock %}
