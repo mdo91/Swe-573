@@ -1,0 +1,119 @@
+<!DOCTYPE html>
+<html>
+<head>
+	<title></title>
+	<head>
+<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.4.0/jquery.min.js"></script>
+</head>
+<meta charset="utf-8">
+</head>
+<body>
+  <div>
+  </div>
+<div class="item form-group">
+                      <label class="control-label col-md-3 col-sm-3 col-xs-12" for="title">Search wiki: <span class="required">*</span>
+                      </label>
+                      <div class="col-md-6 col-sm-6 col-xs-12">
+                        <input id="search_wiki"  class="form-control  col-md-7 col-xs-12"  name="search_wike" placeholder="Enter your text to search for" required="required" type="text">
+                      </div>
+                    </div>
+                    <div>
+                    <div class="control-label col-md-3 col-sm-3 col-xs-12"></div>
+                    <div class="wiki_reulst  col-md-7 col-xs-12" id="wiki_result">
+                            <div class="rowcustom" >
+                              <input type="checkbox" id="checkbox1"/>
+                              <span id="textvalue1" >The first value</span>
+                              <input type="hidden" value="www.google.com"/>
+                            </div>
+
+                      </div>
+                    </div>
+                  <div id = "checked">
+                  </div>
+
+<!-- The output appears here -->
+<div id="artistList">Test</div>
+	<script type="text/javascript">
+   
+  </script>
+<script>
+
+
+
+$("#search_wiki").keyup(function() {
+
+if (!this.value) {
+   console.log("is empty");
+    $("rowcustom").remove();
+}});
+
+  var textValue = $('#search_wiki').val();
+  if (textValue == '' || textValue == null){
+   $("#wiki_result").html("");
+  }else{
+  console.log("not empty"+textValue);
+  }
+
+$('#search_wiki').on('input',function(e){
+  $("#wiki_result").html("");
+  var textValue = $('#search_wiki').val();
+  // console.log(textValue);
+  if (textValue != null || textValue != "" ){
+     $.ajax({
+   type: 'GET',
+   crossDomain: true,
+   dataType: 'jsonp',
+   url: 'https://www.wikidata.org/w/api.php?action=wbsearchentities&search='+textValue+'&language=en&format=json',
+   success: function(jsondata){
+   var textValue = $('#search_wiki').val();
+   console.log(textValue);
+         if (jsondata.search){
+            console.log("lenght: "+jsondata.search.length);
+      for(var i = 0, len = jsondata.search.length; i < len; i++){
+        if (i < 5){
+       console.log("i value: "+i);
+      console.log(jsondata.search[i].label);
+      var v = jsondata.search[i].label;
+      var h = jsondata.search[i].concepturi;
+
+    $("#wiki_result").append('<div class="rowcustom" ><input type="checkbox" id="checkbox'+i+'" name="checkbox'+i+'"/><span id="textvalue'+i+'"  name="textvalue'+i+'" ><a href='+h+'>'+v+'</a></span><input id="urlValue'+i+'"  name="urlValue'+i+'" type="hidden" value="'+h+'"/></div>');
+        }
+  }
+
+         }else{
+           // MARK: clear the contecnt of the div
+          $("#wiki_result").append('not sucess');
+           $("#wiki_result").empty();
+           $("#wiki_result").html('');
+          console.log("Error: check the function20212");
+
+         }
+       
+   }
+
+})
+   }else{
+    // MARK: clear the contecnt of the div
+      console.log("Error: check the function202");
+   }
+
+
+});
+// $('.rowcustom').each(function() {
+//    $(".list").each(function()
+//         {
+//             if($(this).is(':checked'))
+//             {
+//                 $(this).fadeOut();
+//                 // Do stuff with checked box
+//             }
+//             else
+//             {
+//                 // Checkbox isn't checked
+//             }
+
+//      console.log("checked ++++++++++++++++++++");
+// });
+</script>
+</body>
+</html>

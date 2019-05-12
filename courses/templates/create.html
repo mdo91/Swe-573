@@ -113,7 +113,8 @@
                               <span id="textvalue1" >The first value</span>
                               <input type="hidden" value="www.google.com"/>
                             </div>
-                      </div>
+
+
                     </div>
 
 
@@ -163,6 +164,7 @@
                           <th>#</th>
                           <th>Topic Title</th>
                           <th>Description</th>
+                          <th>wiki Data</th>
                           <th>Action</th>
                         </tr>
                       </thead>
@@ -175,6 +177,17 @@
                           <th scope="row">{{topic.id}}</th>
                           <td>{{topic.topicTitle}}</td>
                           <td>{{topic.description}}</td>
+                          <td>
+                            {% if wikidata.count > 0%}
+                            {%for wikidata in wikidata.all%}
+                            {%if wikidata.topic_id_id == topic.id%}
+                            <a href="{{wikidata.wikiLink}}"><button type="button" class="btn btn-round btn-info">{{wikidata.wikiTitle}}</button></a>
+                            {% endif %}
+
+                            {% endfor %}
+                            {% endif %}
+
+                          </td>
                           <td>
                             <div class="buttons">
                               <a href="{%url 'edit' topic.id%}"><button type="button" class="btn btn-success btn-xs">Edit</button></a><button type="button" class="btn btn-primary btn-xs">view</button> <button type="button" class="btn btn-danger btn-xs">delete</button>
