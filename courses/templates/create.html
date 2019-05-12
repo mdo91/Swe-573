@@ -178,6 +178,7 @@
                           <td>{{topic.topicTitle}}</td>
                           <td>{{topic.description}}</td>
                           <td>
+                            <!-- get wiki data  -->
                             {% if wikidata.count > 0%}
                             {%for wikidata in wikidata.all%}
                             {%if wikidata.topic_id_id == topic.id%}
@@ -212,6 +213,8 @@
               </div>
             </div>
 <!-- /page content -->
-
+<!--creat template  -->
+<!--end of block  -->
+<!--end of block  -->
 
 {% endblock %}
