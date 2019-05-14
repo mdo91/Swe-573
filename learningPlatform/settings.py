@@ -31,6 +31,7 @@ ALLOWED_HOSTS = []
 # Application definition
 
 INSTALLED_APPS = ['account.apps.AccountConfig',
+    'lessons.apps.LessonsConfig',
     'courses.apps.CoursesConfig',
     'wikidata.apps.WikidataConfig',
     'django.contrib.admin',
@@ -83,6 +84,9 @@ DATABASES = {
         'PASSWORD':'',
         'HOST':'127.0.0.1',
         'PORT':'',
+        'OPTIONS': {
+            'sql_mode': 'traditional',
+        }
     }
 }
 

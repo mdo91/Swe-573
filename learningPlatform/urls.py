@@ -17,8 +17,10 @@ Including another URLconf
 from django.urls import path, include
 from courses import views
 
+
 urlpatterns = [
     path('', views.home,name='home'),
     path('account/',include('account.urls')),
     path('courses/',include('courses.urls')),
+    path('lessons/',include('lessons.urls')),
 ]

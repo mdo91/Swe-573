@@ -39,10 +39,10 @@ def create(request):
                      wikidata.save()
                      # topic_id = Courses.objects.latest('id')
 
-                if request.POST.get('checkbox1') and request.POST['urlValue1'] and request.POST.get('textvalue1',False):
+                if request.POST.get('checkbox1') and request.POST['urlValue1'] and request.POST['textvalue1']:
                      wikidata = Wikidata.objects.create(wikiTitle=request.POST['textvalue1'],wikiLink=request.POST['urlValue1'],topic_id=topic)
                      wikidata.save()
-                if request.POST.get('checkbox2') and request.POST['urlValue2'] and request.POST.get('textvalue2',False):
+                if request.POST.get('checkbox2') and request.POST['urlValue2'] and request.POST['textvalue2']:
                       wikidata = Wikidata.objects.create(wikiTitle=request.POST['textvalue2'],wikiLink=request.POST['urlValue2'],topic_id=topic)
                       wikidata.save()
                 if request.POST.get('checkbox3') and request.POST['urlValue3'] and request.POST['textvalue3']:
@@ -53,7 +53,7 @@ def create(request):
                       wikidata.save()
 
                 topicsByUser = Courses.objects.filter(userId=request.user)
-                wikidata = Wikidata.objects.filter(topic_id=topic.id)
+                wikidata = Wikidata.objects
                 return render(request,'create.html', {'error':'Topic Has been created successfully','topics':topicsByUser,'wikidata':wikidata})
 
             # if request.POST['url'].startswith('http://') or request.POST['url'].startswith('https://'):
@@ -75,9 +75,6 @@ def create(request):
             print("//////////////////////////////////////////////////////==")
             # wiki_topic_id = topic.id
             wikidata = Wikidata.objects
-
-            print("does exit")
-            print(topic)
             return render(request,'create.html',{'topics':topic,'wikidata':wikidata})
         except Courses.DoesNotExist:
             print("does not exit")
@@ -93,11 +90,43 @@ def edit(request,topic_id):
                 topics.description = request.POST['description']
                 topics.save()
                 topicsByUser = Courses.objects.filter(userId=request.user)
-                return render(request,'create.html',{'error':'The topic has been edited successfully','topics':topicsByUser})
+                wikidata2 = Wikidata.objects
+                if request.POST.get('checkbox0') and request.POST['urlValue0'] and request.POST['textvalue0']:
+                    wikidata = Wikidata.objects.create(wikiTitle=request.POST['textvalue0'],wikiLink=request.POST['urlValue0'],topic_id=topics)
+                    wikidata.save()
+                    print("first value is checked/////////////////////////////////////")
+                     # //check if checkbox is checked or if value is true/flase or if 0/1
+                     # wikidata = Wikidata.objects.update(wikiTitle=request.POST['textvalue0'],wikiLink=request.POST['urlValue0'],topic_id=topic_id)
+                     # Wikidata.objects.filter(id=fr).update(id=to)
+                     # wikidata.save()
+                     # topic_id = Courses.objects.latest('id')
+
+                if request.POST.get('checkbox1') and request.POST['urlValue1'] and request.POST['textvalue1']:
+                    wikidata = Wikidata.objects.create(wikiTitle=request.POST['textvalue1'],wikiLink=request.POST['urlValue1'],topic_id=topics)
+                    wikidata.save()
+                     # wikidata = Wikidata.objects.update(wikiTitle=request.POST['textvalue1'],wikiLink=request.POST['urlValue1'],topic_id=topic_id)
+                     # wikidata.save()
+                if request.POST.get('checkbox2') and request.POST['urlValue2'] and request.POST['textvalue2']:
+                    wikidata = Wikidata.objects.create(wikiTitle=request.POST['textvalue2'],wikiLink=request.POST['urlValue2'],topic_id=topics)
+                    wikidata.save()
+                      # wikidata = Wikidata.objects.update(wikiTitle=request.POST['textvalue2'],wikiLink=request.POST['urlValue2'],topic_id=topic_id)
+                      # wikidata.save()
+                if request.POST.get('checkbox3') and request.POST['urlValue3'] and request.POST['textvalue3']:
+                    wikidata = Wikidata.objects.create(wikiTitle=request.POST['textvalue3'],wikiLink=request.POST['urlValue3'],topic_id=topics)
+                    wikidata.save()
+                     # wikidata = Wikidata.objects.update(wikiTitle=request.POST['textvalue3'],wikiLink=request.POST['urlValue3'],topic_id=topic_id)
+                     # wikidata.save()
+                if request.POST.get('checkbox4') and request.POST['urlValue4'] and request.POST['textvalue4']:
+                    wikidata = Wikidata.objects.create(wikiTitle=request.POST['textvalue4'],wikiLink=request.POST['urlValue4'],topic_id=topics)
+                    wikidata.save()
+                      # wikidata = Wikidata.objects.update(wikiTitle=request.POST['textvalue4'],wikiLink=request.POST['urlValue4'],topic_id=topic_id)
+                      # wikidata.save()
+                return render(request,'create.html',{'error':'The topic has been edited successfully','topics':topicsByUser,'wikidata':wikidata2})
             else:
                  topics = get_object_or_404(Courses, pk=topic_id )
                  topicsByUser = Courses.objects.filter(userId=request.user)
-                 return render(request,'create.html',{'topics':topicsByUser,'topicEdit':topics})
+                 wikidata = Wikidata.objects
+                 return render(request,'create.html',{'topics':topicsByUser,'topicEdit':topics,'wikidata':wikidata})
 
 
 
@@ -107,13 +136,15 @@ def edit(request,topic_id):
              print('not post requset')
              topics = get_object_or_404(Courses, pk=topic_id )
              topicsByUser = Courses.objects.filter(userId=request.user)
-             return render(request,'create.html',{'topics':topicsByUser,'topicEdit':topics})
+             wikidata = Wikidata.objects
+             return render(request,'create.html',{'topics':topicsByUser,'topicEdit':topics,'wikidata':wikidata})
     else:
         print('not post requset2')
         topics = get_object_or_404(Courses, pk=topic_id )
         #print(topics.topicTitle)
         topicsByUser = Courses.objects.filter(userId=request.user)
-        return render(request,'create.html',{'topics':topicsByUser,'topicEdit':topics})
+        wikidata = Wikidata.objects
+        return render(request,'create.html',{'topics':topicsByUser,'topicEdit':topics,'wikidata':wikidata})
 
 
 

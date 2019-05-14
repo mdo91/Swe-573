@@ -1,7 +1,7 @@
 {% extends 'admin.html' %}
 {% block content %}
-courses
 <!-- page content -->
+
 <div class="row">
               <div class="col-md-12 col-sm-12 col-xs-12">
                 <div class="x_panel">
@@ -47,44 +47,36 @@ courses
                   <div class="x_content">
                     {% if topicEdit%}
                   <h1>test topicEdit</h1>
-                    <form class="form-horizontal form-label-left" action="{% url 'edit' topicEdit.id %}" enctype="multipart/form-data"  method="POST" novalidate>
+                    <form class="form-horizontal form-label-left" action="{% url 'edit_lesson' topicEdit.id %}" enctype="multipart/form-data"  method="POST" novalidate>
                       {% csrf_token %}
 
 
-                    <span class="section">Learning Path Info</span>
+                    <span class="section">Lesson Info</span>
 
 
                     <div class="item form-group">
                       <label class="control-label col-md-3 col-sm-3 col-xs-12" for="title">Topic Title <span class="required">*</span>
                       </label>
                       <div class="col-md-6 col-sm-6 col-xs-12">
-                        <input id="title" class="form-control col-md-7 col-xs-12"  name="title" placeholder="Topic title e.g Fastfood" required="required" type="text" value="{{topicEdit.topicTitle}}">
+                        <select class="form-control">
+                          <option>Choose option</option>
+                          <option>Option one</option>
+                          <option>Option two</option>
+                          <option>Option three</option>
+                          <option>Option four</option>
+                        </select>
                       </div>
                     </div>
                     <div class="item form-group">
-                      <label class="control-label col-md-3 col-sm-3 col-xs-12" for="description">Description: <span class="required">*</span>
+                      <label class="control-label col-md-3 col-sm-3 col-xs-12" for="description">Lesson Title: <span class="required">*</span>
                       </label>
                       <div class="col-md-6 col-sm-6 col-xs-12">
-                        <textarea id="description" required="required" name="description" class="form-control col-md-7 col-xs-12" value="{{topicEdit.description}}">{{topicEdit.description}}</textarea>
+                        <textarea id="description" required="required" name="lesson_title" class="form-control col-md-7 col-xs-12" value="{{topicEdit.description}}">{{topicEdit.description}}</textarea>
                       </div>
                     </div>
-                    <div class="item form-group">
-                      <label class="control-label col-md-3 col-sm-3 col-xs-12" for="title">Search wiki: <span class="required">*</span>
-                      </label>
-                      <div class="col-md-6 col-sm-6 col-xs-12">
-                        <input id="search_wiki"  class="form-control  col-md-7 col-xs-12"  name="search_wike" placeholder="Enter your text to search for" required="required" type="text">
-                      </div>
-                    </div>
+
                     <div class="control-label col-md-3 col-sm-3 col-xs-12"></div>
-                    <div class="wiki_reulst  col-md-7 col-xs-12" id="wiki_result">
-                            <div class="rowcustom" >
-                              <input type="checkbox" id="checkbox1"/>
-                              <span id="textvalue1" >The first value</span>
-                              <input type="hidden" value="www.google.com"/>
-                            </div>
 
-
-                    </div>
                     <div class="ln_solid"></div>
                     <div class="form-group">
                       <div class="col-md-6 col-md-offset-3">
@@ -93,47 +85,43 @@ courses
                       </div>
                     </div>
                   </form>
+                  <!-- check submit url  -->
 
                     {%else%}
-                    <form class="form-horizontal form-label-left" action="{% url 'create' %}" enctype="multipart/form-data"  method="POST" novalidate>
+                    <form class="form-horizontal form-label-left" action="{% url 'create_lesson' %}" enctype="multipart/form-data"  method="POST" novalidate>
                       {% csrf_token %}
 
 
-                    <span class="section">Learning Path Info</span>
+                    <span class="section">Lesson Info</span>
 
 
                     <div class="item form-group">
                       <label class="control-label col-md-3 col-sm-3 col-xs-12" for="title">Topic Title <span class="required">*</span>
                       </label>
                       <div class="col-md-6 col-sm-6 col-xs-12">
-                        <input id="title" class="form-control col-md-7 col-xs-12"  name="title" placeholder="Topic title e.g Fastfood" required="required" type="text">
+                        <select class="form-control" name="topic_id">
+                          <option>Choose a topic title</option>
+                          <!--for for each Available topic title-->
+                          {%if topics.count > 0%}
+                          {%for topic in topics.all%}
+                          <option value="{{topic.id}}">{{topic.topicTitle}}</option>
+                          {%endfor%}
+                          {%endif%}
+
+                        </select>
                       </div>
                     </div>
                     <div class="item form-group">
-                      <label class="control-label col-md-3 col-sm-3 col-xs-12" for="description">Description: <span class="required">*</span>
+                      <label class="control-label col-md-3 col-sm-3 col-xs-12" for="description">lesson title: <span class="required">*</span>
                       </label>
                       <div class="col-md-6 col-sm-6 col-xs-12">
-                        <textarea id="description" required="required" name="description" class="form-control col-md-7 col-xs-12"></textarea>
+                        <textarea id="description" required="required" name="lesson_title" class="form-control col-md-7 col-xs-12"></textarea>
                       </div>
                     </div>
-                    <div class="item form-group">
-                      <label class="control-label col-md-3 col-sm-3 col-xs-12" for="title">Search wiki: <span class="required">*</span>
-                      </label>
-                      <div class="col-md-6 col-sm-6 col-xs-12">
-                        <input id="search_wiki"  class="form-control  col-md-7 col-xs-12"  name="search_wike" placeholder="Enter your text to search for" required="required" type="text">
-                      </div>
-                    </div>
+
                     <div>
                     <div class="control-label col-md-3 col-sm-3 col-xs-12"></div>
-                    <div class="wiki_reulst  col-md-7 col-xs-12" id="wiki_result">
-                            <div class="rowcustom" >
-                              <input type="checkbox" id="checkbox1"/>
-                              <span id="textvalue1" >The first value</span>
-                              <input type="hidden" value="www.google.com"/>
-                            </div>
 
-
-                    </div>
 
 
 
@@ -156,7 +144,7 @@ courses
                     <div class="col-md-12 col-sm-12 col-xs-12">
                 <div class="x_panel">
                   <div class="x_title">
-                    <h2>Learning Paths <small>Available learning paths so far</small></h2>
+                    <h2>Lessons <small>Available Lessons so far</small></h2>
                     <ul class="nav navbar-right panel_toolbox">
                       <li><a class="collapse-link"><i class="fa fa-chevron-up"></i></a>
                       </li>
@@ -180,9 +168,9 @@ courses
                       <thead>
                         <tr>
                           <th>#</th>
+                          <th>lesson Title</th>
+                          <th>Lesson Hierarchy</th>
                           <th>Topic Title</th>
-                          <th>Description</th>
-                          <th>wiki Data</th>
                           <th>Action</th>
                         </tr>
                       </thead>
@@ -191,28 +179,30 @@ courses
                         {%if topics.count > 0 %}
 
                         {% for topic in topics.all %}
-                        <tr>
-                          <th scope="row">{{topic.id}}</th>
-                          <td>{{topic.topicTitle}}</td>
-                          <td>{{topic.description}}</td>
+
+
+                          {%if lessons.count > 0 %}
+                          {%for lesson in lessons.all%}
+                          {%if lesson.topic_id_id == topic.id%}
+                          <tr>
+                          <th scope="row">{{lesson.id}}</th>
+                          <td>{{lesson.lesson_title}}</td>
+                          <td>{{lesson.lesson_hierarchy}}</td>
                           <td>
                             <!-- get wiki data  -->
-                            {% if wikidata.count > 0%}
-                            {%for wikidata in wikidata.all%}
-                            {%if wikidata.topic_id_id == topic.id%}
-                            <a href="{{wikidata.wikiLink}}"><button type="button" class="btn btn-round btn-info">{{wikidata.wikiTitle}}</button></a>
-                            {% endif %}
-
-                            {% endfor %}
-                            {% endif %}
+                            {{topic.topicTitle}}
 
                           </td>
                           <td>
                             <div class="buttons">
-                              <a href="{%url 'edit' topic.id%}"><button type="button" class="btn btn-success btn-xs">Edit</button></a><button type="button" class="btn btn-primary btn-xs">view</button> <button type="button" class="btn btn-danger btn-xs">delete</button>
+                              <a href="{%url 'edit_lesson' topic.id%}"><button type="button" class="btn btn-success btn-xs">Edit</button></a><button type="button" class="btn btn-primary btn-xs">view</button> <button type="button" class="btn btn-danger btn-xs">delete</button>
                             </div>
                           </td>
-                        </tr>
+                          {%endif%}
+                          {%endfor%}
+                            </tr>
+                          {%endif%}
+
                         {%endfor%}
                         {%endif%}
 
@@ -220,7 +210,7 @@ courses
                       </tbody>
                     </table>
                     <!--wiki data  -->
-                      
+
                   </div>
                 </div>
               </div>
