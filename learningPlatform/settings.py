@@ -31,9 +31,11 @@ ALLOWED_HOSTS = []
 # Application definition
 
 INSTALLED_APPS = ['account.apps.AccountConfig',
+    'materials.apps.MaterialsConfig',
     'lessons.apps.LessonsConfig',
     'courses.apps.CoursesConfig',
     'wikidata.apps.WikidataConfig',
+    'contents.apps.ContentsConfig',
     'django.contrib.admin',
     'django.contrib.auth',
     'django.contrib.contenttypes',
@@ -78,15 +80,15 @@ WSGI_APPLICATION = 'learningPlatform.wsgi.application'
 
 DATABASES = {
     'default': {
-        'ENGINE': 'django.db.backends.mysql',
+        'ENGINE': 'django.db.backends.postgresql',
         'NAME': 'learningplatform',
-        'USER':'root',
+        'USER':'postgres',
         'PASSWORD':'',
         'HOST':'127.0.0.1',
-        'PORT':'',
-        'OPTIONS': {
-            'sql_mode': 'traditional',
-        }
+        'PORT':'5432',
+        # 'OPTIONS': {
+        #     'sql_mode': 'traditional',
+        # }
     }
 }
 

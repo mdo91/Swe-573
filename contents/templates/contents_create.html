@@ -1,0 +1,347 @@
+{% extends 'admin.html' %}
+{% block content %}
+<!-- page content -->
+Materials
+<div class="row">
+              <div class="col-md-12 col-sm-12 col-xs-12">
+                <div class="x_panel">
+                  <div class="x_title">
+<!--alert  -->{% if error %}
+
+                <div class="alert alert-success alert-dismissible fade in" role="alert">
+                 <button type="button" class="close" data-dismiss="alert" aria-label="Close"><span aria-hidden="true">×</span>
+                 </button>
+                 <strong>  {{error}}</strong>
+               </div>
+                {% endif %}
+                {%if method%}
+                {{method}}
+                {%endif%}
+                {%if error1%}
+                <div class="alert alert-warning alert-dismissible fade in" role="alert">
+                   <button type="button" class="close" data-dismiss="alert" aria-label="Close"><span aria-hidden="true">×</span>
+                   </button>
+                   <strong>{{error1}}</strong>
+                 </div>
+                {%endif%}
+
+<!--end alert  -->
+                    <ul class="nav navbar-right panel_toolbox">
+                      <li><a class="collapse-link"><i class="fa fa-chevron-up"></i></a>
+                      </li>
+                      <li class="dropdown">
+                        <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-expanded="false"><i class="fa fa-wrench"></i></a>
+                        <ul class="dropdown-menu" role="menu">
+                          <li><a href="#">Settings 1</a>
+                          </li>
+                          <li><a href="#">Settings 2</a>
+                          </li>
+                        </ul>
+                      </li>
+                      <li><a class="close-link"><i class="fa fa-close"></i></a>
+                      </li>
+                    </ul>
+                    <div class="clearfix"></div>
+                  </div>
+                  <!-- form section  -->
+                  <div class="x_content">
+                    {% if topicEdit%}
+                  <h1>test topicEdit</h1>
+                    <form class="form-horizontal form-label-left" action="{% url 'edit_lesson' topicEdit.id %}" enctype="multipart/form-data"  method="POST" novalidate>
+                      {% csrf_token %}
+
+
+                    <span class="section">Insert Material for a Course</span>
+
+
+                    <div class="item form-group">
+                      <label class="control-label col-md-3 col-sm-3 col-xs-12" for="title">Lesson Title <span class="required">*</span>
+                      </label>
+                      <div class="col-md-6 col-sm-6 col-xs-12">
+                        <select class="form-control">
+                          <option>Choose option</option>
+                          <option>Option one</option>
+                          <option>Option two</option>
+                          <option>Option three</option>
+                          <option>Option four</option>
+                        </select>
+                      </div>
+                    </div>
+                    <div class="item form-group">
+                      <label class="control-label col-md-3 col-sm-3 col-xs-12" for="title">Material Title <span class="required">*</span>
+                      </label>
+                      <div class="col-md-6 col-sm-6 col-xs-12">
+                        <input id="title" class="form-control col-md-7 col-xs-12"  name="material_title" placeholder="Material title e.g ways to adapt living in a foreign Country" required="required" type="text" value="{{topicEdit.topicTitle}}">
+                      </div>
+                    </div>
+
+                    <div class="control-label col-md-3 col-sm-3 col-xs-12"></div>
+
+                    <div class="ln_solid"></div>
+                    <div class="form-group">
+                      <div class="col-md-6 col-md-offset-3">
+                        <button type="" class="btn btn-primary">Cancel</button>
+                        <button id="send" type="submit" class="btn btn-success">Edit</button>
+                      </div>
+                    </div>
+                  </form>
+                  <!-- check submit url  -->
+
+                    {%else%}
+                    <form class="form-horizontal form-label-left" action="{% url 'create_contents' %}" enctype="multipart/form-data"  method="POST" id="material-form1" novalidate>
+                      {% csrf_token %}
+
+
+                    <span class="section">Insert Material for a Course</span>
+
+
+
+                    <div class="item form-group">
+                      <label class="control-label col-md-3 col-sm-3 col-xs-12" for="description">Lesson title: <span class="required">*</span>
+                      </label>
+                      <div class="col-md-6 col-sm-6 col-xs-12">
+                        <select class="form-control" name="lesson_id">
+                          {%if lastlesson%}
+                          <option value="{{lastlesson.id}}">{{lastlesson.lesson_title}}</option>
+                          {%endif%}
+                          
+                          <!--for for each Available topic title-->
+                          {%if ls%}
+                          <h2>true</h2>
+                          {{ls.count}}
+                          {%for n in ls%}
+                        <option value="{{n.id}}">{{n.lesson_title}}</option>
+                          {%endfor%}
+                          {%endif%}
+
+
+                        </select>
+                      </div>
+                    </div>
+                    <div class="item form-group">
+                      <label class="control-label col-md-3 col-sm-3 col-xs-12" for="title">Material Title <span class="required">*</span>
+                      </label>
+                      <div class="col-md-6 col-sm-6 col-xs-12">
+                        <input id="title" class="form-control col-md-7 col-xs-12"  name="material_title" placeholder="Material title e.g ways to adapt living in a foreign Country" required="required" type="text" value="{{topicEdit.topicTitle}}">
+                      </div>
+                    </div>
+                    <div class="item form-group">
+                      <!-- <label class="control-label col-md-3 col-sm-3 col-xs-12" for="description">Content: <span class="required">*</span>
+                      </label> -->
+                      <div class="col-md-12 col-sm-12 col-xs-12">
+              <div class="x_panel">
+                <div class="x_title">
+                  <h2>Content:<small></small></h2>
+                  <ul class="nav navbar-right panel_toolbox">
+                    <li><a class="collapse-link"><i class="fa fa-chevron-up"></i></a>
+                    </li>
+                    <li class="dropdown">
+                      <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-expanded="false"><i class="fa fa-wrench"></i></a>
+                      <ul class="dropdown-menu" role="menu">
+                        <li><a href="#">Settings 1</a>
+                        </li>
+                        <li><a href="#">Settings 2</a>
+                        </li>
+                      </ul>
+                    </li>
+                    <li><a class="close-link"><i class="fa fa-close"></i></a>
+                    </li>
+                  </ul>
+                  <div class="clearfix"></div>
+                </div>
+                <div class="x_content">
+                  <div id="alerts"></div>
+                  <div class="btn-toolbar editor" data-role="editor-toolbar" data-target="#editor-one">
+                    <div class="btn-group">
+                      <a class="btn dropdown-toggle" data-toggle="dropdown" title="Font"><i class="fa fa-font"></i><b class="caret"></b></a>
+                      <ul class="dropdown-menu">
+                      </ul>
+                    </div>
+
+                    <div class="btn-group">
+                      <a class="btn dropdown-toggle" data-toggle="dropdown" title="Font Size"><i class="fa fa-text-height"></i>&nbsp;<b class="caret"></b></a>
+                      <ul class="dropdown-menu">
+                        <li>
+                          <a data-edit="fontSize 5">
+                            <p style="font-size:17px">Huge</p>
+                          </a>
+                        </li>
+                        <li>
+                          <a data-edit="fontSize 3">
+                            <p style="font-size:14px">Normal</p>
+                          </a>
+                        </li>
+                        <li>
+                          <a data-edit="fontSize 1">
+                            <p style="font-size:11px">Small</p>
+                          </a>
+                        </li>
+                      </ul>
+                    </div>
+
+                    <div class="btn-group">
+                      <a class="btn" data-edit="bold" title="Bold (Ctrl/Cmd+B)"><i class="fa fa-bold"></i></a>
+                      <a class="btn" data-edit="italic" title="Italic (Ctrl/Cmd+I)"><i class="fa fa-italic"></i></a>
+                      <a class="btn" data-edit="strikethrough" title="Strikethrough"><i class="fa fa-strikethrough"></i></a>
+                      <a class="btn" data-edit="underline" title="Underline (Ctrl/Cmd+U)"><i class="fa fa-underline"></i></a>
+                    </div>
+
+                    <div class="btn-group">
+                      <a class="btn" data-edit="insertunorderedlist" title="Bullet list"><i class="fa fa-list-ul"></i></a>
+                      <a class="btn" data-edit="insertorderedlist" title="Number list"><i class="fa fa-list-ol"></i></a>
+                      <a class="btn" data-edit="outdent" title="Reduce indent (Shift+Tab)"><i class="fa fa-dedent"></i></a>
+                      <a class="btn" data-edit="indent" title="Indent (Tab)"><i class="fa fa-indent"></i></a>
+                    </div>
+
+                    <div class="btn-group">
+                      <a class="btn" data-edit="justifyleft" title="Align Left (Ctrl/Cmd+L)"><i class="fa fa-align-left"></i></a>
+                      <a class="btn" data-edit="justifycenter" title="Center (Ctrl/Cmd+E)"><i class="fa fa-align-center"></i></a>
+                      <a class="btn" data-edit="justifyright" title="Align Right (Ctrl/Cmd+R)"><i class="fa fa-align-right"></i></a>
+                      <a class="btn" data-edit="justifyfull" title="Justify (Ctrl/Cmd+J)"><i class="fa fa-align-justify"></i></a>
+                    </div>
+
+                    <div class="btn-group">
+                      <a class="btn dropdown-toggle" data-toggle="dropdown" title="Hyperlink"><i class="fa fa-link"></i></a>
+                      <div class="dropdown-menu input-append">
+                        <input class="span2" placeholder="URL" type="text" data-edit="createLink">
+                        <button class="btn" type="button">Add</button>
+                      </div>
+                      <a class="btn" data-edit="unlink" title="Remove Hyperlink"><i class="fa fa-cut"></i></a>
+                    </div>
+
+                    <div class="btn-group">
+                      <a class="btn" title="Insert picture (or just drag &amp; drop)" id="pictureBtn"><i class="fa fa-picture-o"></i></a>
+                      <input type="file" data-role="magic-overlay" data-target="#pictureBtn" data-edit="insertImage">
+                    </div>
+
+                    <div class="btn-group">
+                      <a class="btn" data-edit="undo" title="Undo (Ctrl/Cmd+Z)"><i class="fa fa-undo"></i></a>
+                      <a class="btn" data-edit="redo" title="Redo (Ctrl/Cmd+Y)"><i class="fa fa-repeat"></i></a>
+                    </div>
+                  </div>
+
+                  <div id="editor-one" class="editor-wrapper placeholderText" contenteditable="true"></div>
+
+                  <textarea name="content" id="descr" style="display:none;"></textarea>
+
+                  <br>
+
+
+
+
+                </div>
+              </div>
+            </div>
+                    </div>
+
+                    <div>
+                    <div class="control-label col-md-3 col-sm-3 col-xs-12"></div>
+
+
+
+
+                    </div>
+                    <div class="ln_solid"></div>
+                    <div class="form-group">
+                      <div class="col-md-6 col-md-offset-3">
+                        <button type="" class="btn btn-primary">Cancel</button>
+                        <button id="submit-content" type="submit" class="btn btn-success">Submit</button>
+                      </div>
+                    </div>
+                  </form>
+
+                    {%endif%}
+
+
+                  </div>
+                    <!-- end form section  -->
+                    <!-- table section  -->
+                    <div class="col-md-12 col-sm-12 col-xs-12">
+                <div class="x_panel">
+                  <div class="x_title">
+                    <h2>Contents <small>Available Materials so far</small></h2>
+                    <ul class="nav navbar-right panel_toolbox">
+                      <li><a class="collapse-link"><i class="fa fa-chevron-up"></i></a>
+                      </li>
+                      <li class="dropdown">
+                        <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-expanded="false"><i class="fa fa-wrench"></i></a>
+                        <ul class="dropdown-menu" role="menu">
+                          <li><a href="#">Settings 1</a>
+                          </li>
+                          <li><a href="#">Settings 2</a>
+                          </li>
+                        </ul>
+                      </li>
+                      <li><a class="close-link"><i class="fa fa-close"></i></a>
+                      </li>
+                    </ul>
+                    <div class="clearfix"></div>
+                  </div>
+                  <div class="x_content">
+
+                    <table class="table table-bordered">
+                      <thead>
+                        <tr>
+                          <th>#</th>
+                          <th>material content</th>
+                          <th>material title</th>
+                          <th>lesson Title</th>
+                          <th>Action</th>
+                        </tr>
+                      </thead>
+                      <tbody>
+
+                        {%if contentsbylesson%}
+
+
+
+                        {% for content in contentsbylesson %}
+
+
+
+                          {%if ls%}
+
+                          {%for lesson in ls%}
+                          {%if lesson.id == content.lessonId_id%}
+                          <tr>
+                          <th scope="row">{{content.id}}</th>
+                          <td>{{content.content}}</td>
+                          <td>{{content.material_title}}</td>
+                          <td>
+                            <!-- get wiki data  -->
+                            {{lesson.lesson_title}}
+
+                          </td>
+                          <td>
+                            <div class="buttons">
+                              <a href="#"><button type="button" class="btn btn-success btn-xs">Edit</button></a><button type="button" class="btn btn-primary btn-xs">view</button> <button type="button" class="btn btn-danger btn-xs">delete</button>
+                            </div>
+                          </td>
+                          {%endif%}
+                          {%endfor%}
+                            </tr>
+                          {%endif%}
+
+                        {%endfor%}
+                        {%endif%}
+
+<!-- in this learning Path you will be learning servers recipes to cook delicious fast-food  -->
+                      </tbody>
+                    </table>
+                    <!--wiki data  -->
+
+                  </div>
+                </div>
+              </div>
+
+              <div class="clearfix"></div>
+                    <!-- end of table section  -->
+                </div>
+              </div>
+            </div>
+<!-- /page content -->
+<!--creat template  -->
+<!--end of block  -->
+<!--end of block  -->
+<!--end of block  -->
+{% endblock %}

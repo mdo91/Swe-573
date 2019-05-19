@@ -7,3 +7,4 @@ class Courses(models.Model):
     topicTitle = models.CharField(max_length=255)
     description =  models.TextField()
     userId = models.ForeignKey(User,on_delete = models.CASCADE)
+    
