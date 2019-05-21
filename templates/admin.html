@@ -23,6 +23,27 @@
     <!-- Custom styling plus plugins -->
 
       <link href="{% static '/admin//build/css/custom.min.css'%}" rel="stylesheet">
+      <style media="screen">
+        .wiki-row{
+          background-color: gray;
+          font-size: 14px;
+          padding: 4px;
+          color: white;
+          border-bottom: 4px dotted white;
+          border-radius: 10%;
+        }
+        .wiki-row a{
+            color: white;
+            margin-left: 10px;
+        }
+        .wiki-row.check{
+          padding-left: 15px;
+          margin: 10px;
+        }
+        .data{
+          color: #990033;
+        }
+      </style>
   </head>
   <body class="nav-md">
     <div class="container body">
@@ -501,7 +522,7 @@ $('#search_wiki').on('input',function(e){
       <script src="{% static '/admin/build/js/custom.min.js'%}"></script>
       <!-- validator -->
       <script src="{% static '/admin/vendors/validator/validator.js'%}"></script>
-      <script src="{% static '/admin//vendors/iCheck/icheck.min.js'%}"></script>
+      <!-- <script src="{% static '/admin//vendors/iCheck/icheck.min.js'%}"></script> -->
       <!-- <script src="../vendors/iCheck/icheck.min.js"></script> -->
 
 
@@ -551,8 +572,10 @@ $('#search_wiki').on('input',function(e){
       console.log(jsondata.search[i].label);
       var v = jsondata.search[i].label;
       var h = jsondata.search[i].concepturi;
+      var d = jsondata.search[i].description;
+      var id = jsondata.search[i].id;
 
-    $("#wiki_result").append('<div class="rowcustom" ><input type="checkbox" id="checkbox'+i+'" name="checkbox'+i+'"/><a href='+h+'>'+v+'</a> <input type="hidden" id="textvalue'+i+'"  name="textvalue'+i+'" value="'+v+'" /><input id="urlValue'+i+'"  name="urlValue'+i+'" type="hidden" value="'+h+'"/></div>');
+    $("#wiki_result").append('<div class="row wiki-row"><div class="col-md-12" ><input type="checkbox" id="checkbox'+i+'" name="checkbox'+i+'" class="check"/><a href='+h+'>'+v+'</a> <input type="hidden" id="textvalue'+i+'"  name="textvalue'+i+'" value="'+v+'" /><input id="urlValue'+i+'"  name="urlValue'+i+'" type="hidden" value="'+h+'"/></div><p class="data">'+d+'</p>     '+id+'</div>');
         }
   }
 
