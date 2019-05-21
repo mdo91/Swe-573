@@ -1,4 +1,46 @@
 {% extends 'base.html' %}
 {% block content %}
-home!
+<div class="container-fluid">
+  <img src="https://ec.europa.eu/education/sites/education/files/european-education-area.jpg" alt="">
+</div>
+<div class="container">
+  {%if topics%}
+
+  {%for topic in topics.all%}
+
+
+
+  <div class="row top">
+    <div class="col-md-2">
+      <img src="https://via.placeholder.com/150" alt="">
+    </div>
+    <div class="col-md-10">
+      <div class="row">
+        <div class="col-md-12">
+          <p>Topic title: {{topic.topicTitle}}</p>
+        </div>
+
+      </div>
+      <div class="row">
+        <div class="col-md-8">
+          <p>Description: {{topic.description}}</p>
+          <button class="btn btn-success"type="button" name="button">Enroll</button>
+        </div>
+        <div class="col-md-2">
+          <p>Materials</p>
+          <button type="button" class="btn btn-round btn-info">1</button>
+        </div>
+        <div class="col-md-2">
+          <p>Lessons</p>
+          <button type="button" class="btn btn-round btn-info">1</button>
+        </div>
+      </div>
+
+    </div>
+  </div>
+
+  {%endfor%}
+
+  {%endif%}
+</div>
 {% endblock %}

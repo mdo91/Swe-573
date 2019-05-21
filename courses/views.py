@@ -3,6 +3,7 @@ from django.contrib.auth.decorators import login_required
 from django.contrib.auth.models import User
 from django.contrib import auth
 from .models import Courses
+from courses.models import Courses
 from contents.models import Contents
 from lessons.models import Lessons
 from wikidata.models import Wikidata
@@ -10,8 +11,13 @@ from django.utils import timezone
 
 # Create your views here.
 def home(request):
+    topics = Courses.objects
+    lessons = Lessons.objects
+    materials = Contents.objects
 
-    return render(request,'home.html')
+
+
+    return render(request,'home.html',{'topics':topics,'lessons':lessons,'materials':materials})
 @login_required(login_url='signup')
 def create(request):
     if request.method == 'POST':

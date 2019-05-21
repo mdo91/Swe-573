@@ -15,6 +15,12 @@
 
     <!-- Custom styles for this template -->
     <link href="album.css" rel="stylesheet">
+    <style media="screen">
+      .top{
+        margin-top: 10px;
+        background-color:
+      }
+    </style>
   </head>
 
   <body>
@@ -37,9 +43,9 @@
     <ul class="navbar-nav ml-auto">
       {%if user.is_authenticated%}
 
-      <a class="nav-item nav-link" href="javaScript: {document.getElementById('logout').submit()}">Logout</a>
+      <a class="nav-item nav-link" href="javaScript: {document.getElementById('logout').submit()}"><button class="btn btn-dangour"type="button" name="button">Logout</button> </a></a>
       <a class="nav-item nav-link" href="{%url 'create' %}"> <button class="btn btn-primary"type="button" name="button">Create Course</button> </a>
-        <a class="nav-item nav-link" href="#"> <button class="btn btn-primary"type="button" name="button">my Course</button> </a>
+        <a class="nav-item nav-link" href="#"> <button class="btn btn-primary"type="button" name="button">my Courses</button> </a>
       <form  id="logout"class="" action="{%url 'logout'%}" method="POST">
         {% csrf_token %}
         <input  type="hidden">
