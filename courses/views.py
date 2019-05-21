@@ -54,6 +54,36 @@ def create(request):
                 if request.POST.get('checkbox4') and request.POST['urlValue4'] and request.POST['textvalue4']:
                       wikidata = Wikidata.objects.create(wikiTitle=request.POST['textvalue4'],wikiLink=request.POST['urlValue4'],topic_id=topic)
                       wikidata.save()
+                if request.POST.get('checkbox5') and request.POST['urlValue5'] and request.POST['textvalue5']:
+                            wikidata = Wikidata.objects.create(wikiTitle=request.POST['textvalue5'],wikiLink=request.POST['urlValue5'],topic_id=topic)
+                            wikidata.save()
+                if request.POST.get('checkbox6') and request.POST['urlValue6'] and request.POST['textvalue6']:
+                      wikidata = Wikidata.objects.create(wikiTitle=request.POST['textvalue6'],wikiLink=request.POST['urlValue6'],topic_id=topic)
+                      wikidata.save()
+                if request.POST.get('checkbox7') and request.POST['urlValue7'] and request.POST['textvalue7']:
+                      wikidata = Wikidata.objects.create(wikiTitle=request.POST['textvalue7'],wikiLink=request.POST['urlValue7'],topic_id=topic)
+                      wikidata.save()
+                if request.POST.get('checkbox8') and request.POST['urlValue8'] and request.POST['textvalue8']:
+                      wikidata = Wikidata.objects.create(wikiTitle=request.POST['textvalue8'],wikiLink=request.POST['urlValue8'],topic_id=topic)
+                      wikidata.save()
+                if request.POST.get('checkbox9') and request.POST['urlValue9'] and request.POST['textvalue9']:
+                      wikidata = Wikidata.objects.create(wikiTitle=request.POST['textvalue9'],wikiLink=request.POST['urlValue9'],topic_id=topic)
+                      wikidata.save()
+                if request.POST.get('checkbox10') and request.POST['urlValue10'] and request.POST['textvalue10']:
+                      wikidata = Wikidata.objects.create(wikiTitle=request.POST['textvalue10'],wikiLink=request.POST['urlValue10'],topic_id=topic)
+                      wikidata.save()
+                if request.POST.get('checkbox11') and request.POST['urlValue11'] and request.POST['textvalue11']:
+                      wikidata = Wikidata.objects.create(wikiTitle=request.POST['textvalue11'],wikiLink=request.POST['urlValue11'],topic_id=topic)
+                      wikidata.save()
+                if request.POST.get('checkbox12') and request.POST['urlValue12'] and request.POST['textvalue12']:
+                      wikidata = Wikidata.objects.create(wikiTitle=request.POST['textvalue12'],wikiLink=request.POST['urlValue12'],topic_id=topic)
+                      wikidata.save()
+                if request.POST.get('checkbox13') and request.POST['urlValue13'] and request.POST['textvalue13']:
+                      wikidata = Wikidata.objects.create(wikiTitle=request.POST['textvalue13'],wikiLink=request.POST['urlValue13'],topic_id=topic)
+                      wikidata.save()
+                if request.POST.get('checkbox14') and request.POST['urlValue14'] and request.POST['textvalue14']:
+                      wikidata = Wikidata.objects.create(wikiTitle=request.POST['textvalue14'],wikiLink=request.POST['urlValue14'],topic_id=topic)
+                      wikidata.save()
 
                 topicsByUser = Courses.objects.filter(userId=request.user)
                 wikidata = Wikidata.objects
