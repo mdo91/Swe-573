@@ -59,7 +59,7 @@
                       <li><a href="{%url 'create' %}">Learning Path</a></li>
                       <li><a href="{%url 'create_lesson'%}">lesson</a></li>
                       <li><a href="{%url 'create_contents'%}">Materials</a></li>
-                        <li><a href="index3.html">Questions</a></li>
+                        <li><a href="{%url 'create_question'%}">Questions</a></li>
                     </ul>
                   </li>
                   <!-- <li><a><i class="fa fa-edit"></i> Forms <span class="fa fa-chevron-down"></span></a>
@@ -501,6 +501,8 @@ $('#search_wiki').on('input',function(e){
       <script src="{% static '/admin/build/js/custom.min.js'%}"></script>
       <!-- validator -->
       <script src="{% static '/admin/vendors/validator/validator.js'%}"></script>
+      <script src="{% static '/admin//vendors/iCheck/icheck.min.js'%}"></script>
+      <!-- <script src="../vendors/iCheck/icheck.min.js"></script> -->
 
 
     <!-- Custom Theme Scripts -->

@@ -1,0 +1,322 @@
+{% extends 'admin.html' %}
+{% block content %}
+<!-- page content -->
+
+<div class="row">
+              <div class="col-md-12 col-sm-12 col-xs-12">
+                <div class="x_panel">
+                  <div class="x_title">
+<!--alert  -->{% if error %}
+
+                <div class="alert alert-success alert-dismissible fade in" role="alert">
+                 <button type="button" class="close" data-dismiss="alert" aria-label="Close"><span aria-hidden="true">×</span>
+                 </button>
+                 <strong>  {{error}}</strong>
+               </div>
+                {% endif %}
+                {%if method%}
+                {{method}}
+                {%endif%}
+                {%if error1%}
+                <div class="alert alert-warning alert-dismissible fade in" role="alert">
+                   <button type="button" class="close" data-dismiss="alert" aria-label="Close"><span aria-hidden="true">×</span>
+                   </button>
+                   <strong>{{error1}}</strong>
+                 </div>
+                {%endif%}
+
+<!--end alert  -->
+                    <ul class="nav navbar-right panel_toolbox">
+                      <li><a class="collapse-link"><i class="fa fa-chevron-up"></i></a>
+                      </li>
+                      <li class="dropdown">
+                        <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-expanded="false"><i class="fa fa-wrench"></i></a>
+                        <ul class="dropdown-menu" role="menu">
+                          <li><a href="#">Settings 1</a>
+                          </li>
+                          <li><a href="#">Settings 2</a>
+                          </li>
+                        </ul>
+                      </li>
+                      <li><a class="close-link"><i class="fa fa-close"></i></a>
+                      </li>
+                    </ul>
+                    <div class="clearfix"></div>
+                  </div>
+                  <!-- form section  -->
+                  <div class="x_content">
+                    {% if topicEdit%}
+                  <h1>test topicEdit</h1>
+                    <form class="form-horizontal form-label-left" action="{% url 'edit_lesson' topicEdit.id %}" enctype="multipart/form-data"  method="POST" novalidate>
+                      {% csrf_token %}
+
+
+                    <span class="section">Insert Material for a Course</span>
+
+
+                    <div class="item form-group">
+                      <label class="control-label col-md-3 col-sm-3 col-xs-12" for="title">Lesson Title <span class="required">*</span>
+                      </label>
+                      <div class="col-md-6 col-sm-6 col-xs-12">
+                        <select class="form-control">
+                          <option>Choose option</option>
+                          <option>Option one</option>
+                          <option>Option two</option>
+                          <option>Option three</option>
+                          <option>Option four</option>
+                        </select>
+                      </div>
+                    </div>
+                    <div class="item form-group">
+                      <label class="control-label col-md-3 col-sm-3 col-xs-12" for="title">Material Title <span class="required">*</span>
+                      </label>
+                      <div class="col-md-6 col-sm-6 col-xs-12">
+                        <input id="title" class="form-control col-md-7 col-xs-12"  name="material_title" placeholder="Material title e.g ways to adapt living in a foreign Country" required="required" type="text" value="{{topicEdit.topicTitle}}">
+                      </div>
+                    </div>
+
+                    <div class="control-label col-md-3 col-sm-3 col-xs-12"></div>
+
+                    <div class="ln_solid"></div>
+                    <div class="form-group">
+                      <div class="col-md-6 col-md-offset-3">
+                        <button type="" class="btn btn-primary">Cancel</button>
+                        <button id="send" type="submit" class="btn btn-success">Edit</button>
+                      </div>
+                    </div>
+                  </form>
+                  <!-- check submit url  -->
+
+                    {%else%}
+                    <!--else statement===========================================================================================  -->
+                    <form class="form-horizontal form-label-left" action="{% url 'create_question' %}" enctype="multipart/form-data"  method="POST" id="material-form" novalidate>
+                      {% csrf_token %}
+
+
+                    <span class="section">Insert Material for a Course</span>
+
+
+
+                    <div class="item form-group">
+                      <label class="control-label col-md-3 col-sm-3 col-xs-12" for="description">Material title: <span class="required">*</span>
+                      </label>
+                      <div class="col-md-6 col-sm-6 col-xs-12">
+                        <select class="form-control" name="material_id">
+                          {%if lastcontent%}
+                          <option value="{{lastcontent.id}}">{{lastcontent.material_title}}</option>
+                          {%endif%}
+
+                          <!--for for each Available topic title-->
+                          {%if contentsbylesson%}
+                          <h2>true</h2>
+                          {{ls.contentsbylesson}}
+                          {%for n in contentsbylesson%}
+                        <option value="{{n.id}}">{{n.material_title}}</option>
+                          {%endfor%}
+                          {%endif%}
+
+
+                        </select>
+                      </div>
+                    </div>
+                    <div class="item form-group">
+                      <label class="control-label col-md-3 col-sm-3 col-xs-12" for="title">Question: <span class="required">*</span>
+                      </label>
+                      <div class="col-md-6 col-sm-6 col-xs-12">
+                        <input id="title" class="form-control col-md-7 col-xs-12"  name="question" placeholder="what is the best way in...?" required="required" type="text" value="{{topicEdit.topicTitle}}">
+                      </div>
+                    </div>
+                    <div class="item form-group">
+                      <!--first option  -->
+                      <label class="control-label col-md-3 col-sm-3 col-xs-12" for="title">Option1: <span class="required">*</span>
+                      </label>
+                      <div class="col-md-6 col-sm-6 col-xs-6">
+                        <input id="title" class="form-control col-md-7 col-xs-12"  name="option1" placeholder="option1" required="required" type="text" value="{{topicEdit.topicTitle}}">
+
+                      </div>
+                      <div class="col-md-3 col-sm-3 col-xs-3">
+                        <label>Answer *: </label>
+                            <label>True </label>
+                          <input type="radio" class="" name="answer1" id="genderM" value="True" required />
+                            <label>False </label>
+                          <input type="radio" class="" name="answer1" id="genderF" value="False" checked="" required/>
+                      </div>
+                    </div>
+                    <!--second <option value=""></option>  -->
+                    <div class="item form-group">
+                      <label class="control-label col-md-3 col-sm-3 col-xs-12" for="title">Option2: <span class="required">*</span>
+                      </label>
+                      <div class="col-md-6 col-sm-6 col-xs-6">
+                        <input id="title" class="form-control col-md-7 col-xs-12"  name="option2" placeholder="option2" required="required" type="text" value="{{topicEdit.topicTitle}}">
+
+                      </div>
+                      <div class="col-md-3 col-sm-3 col-xs-3">
+                        <label>Answer *: </label>
+                            <label>True </label>
+                          <input type="radio" class="" name="answer2" id="genderM" value="True"  required />
+                            <label>False </label>
+                          <input type="radio" class="" name="answer2" id="genderF" value="False" checked="" required/>
+                      </div>
+                      <!--third value <option value=""></option>  -->
+                    </div>
+                    <!--there another option  -->
+                    <div class="item form-group">
+                      <label class="control-label col-md-3 col-sm-3 col-xs-12" for="title">Option3: <span class="required">*</span>
+                      </label>
+                      <div class="col-md-6 col-sm-6 col-xs-6">
+                        <input id="title" class="form-control col-md-7 col-xs-12"  name="option3" placeholder="option3" required="required" type="text" value="{{topicEdit.topicTitle}}">
+
+                      </div>
+                      <div class="col-md-3 col-sm-3 col-xs-3">
+                        <label>Answer *: </label>
+                            <label>True </label>
+                          <input type="radio" class="" name="answer3" id="genderM" value="True" required />
+                            <label>False </label>
+                          <input type="radio" class="" name="answer3" id="genderF" value="False" checked="" required/>
+                      </div>
+                      <!--third value <option value=""></option>  -->
+                    </div>
+                    <div class="item form-group">
+                      <label class="control-label col-md-3 col-sm-3 col-xs-12" for="title">Option4: <span class="required">*</span>
+                      </label>
+                      <div class="col-md-6 col-sm-6 col-xs-6">
+                        <input id="title" class="form-control col-md-7 col-xs-12"  name="option4" placeholder="option4" required="required" type="text" value="{{topicEdit.topicTitle}}">
+
+                      </div>
+                      <div class="col-md-3 col-sm-3 col-xs-3">
+                        <label>Answer *: </label>
+                            <label>True </label>
+                          <input type="radio" class="" name="answer4" id="genderM" value="True" required />
+                            <label>False </label>
+                          <input type="radio" class="" name="answer4" id="genderF" value="False" checked="" required/>
+                      </div>
+                      <!--third value <option value=""></option>  -->
+                    </div>
+                    <div class="item form-group">
+                      <!-- <label class="control-label col-md-3 col-sm-3 col-xs-12" for="description">Content: <span class="required">*</span>
+                      </label> -->
+                      <div class="col-md-12 col-sm-12 col-xs-12">
+
+            </div>
+                    </div>
+
+                    <div>
+                    <div class="control-label col-md-3 col-sm-3 col-xs-12"></div>
+
+
+
+
+                    </div>
+                    <div class="ln_solid"></div>
+                    <div class="form-group">
+                      <div class="col-md-6 col-md-offset-3">
+                        <button type="" class="btn btn-primary">Cancel</button>
+                        <button id="submit-content" type="submit" class="btn btn-success">Submit</button>
+                      </div>
+                    </div>
+                  </form>
+
+                    {%endif%}
+
+
+                  </div>
+                    <!-- end form section  -->
+                    <!-- table section  -->
+                    <div class="col-md-12 col-sm-12 col-xs-12">
+                <div class="x_panel">
+                  <div class="x_title">
+                    <h2>Contents <small>Available Materials so far</small></h2>
+                    <ul class="nav navbar-right panel_toolbox">
+                      <li><a class="collapse-link"><i class="fa fa-chevron-up"></i></a>
+                      </li>
+                      <li class="dropdown">
+                        <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-expanded="false"><i class="fa fa-wrench"></i></a>
+                        <ul class="dropdown-menu" role="menu">
+                          <li><a href="#">Settings 1</a>
+                          </li>
+                          <li><a href="#">Settings 2</a>
+                          </li>
+                        </ul>
+                      </li>
+                      <li><a class="close-link"><i class="fa fa-close"></i></a>
+                      </li>
+                    </ul>
+                    <div class="clearfix"></div>
+                  </div>
+                  <div class="x_content">
+
+                    <table class="table table-bordered">
+                      <thead>
+                        <tr>
+                          <th>#</th>
+                          <th>Question</th>
+                          <th>material title</th>
+                          <th>options</th>
+                          <th>Action</th>
+                        </tr>
+                      </thead>
+                      <tbody>
+
+                        {%if questions%}
+                        test
+
+
+
+                        {% for question in questions %}
+
+
+
+
+                          {%if contentsbylesson%}
+
+                          {%for m in contentsbylesson%}
+                          {%if m.id == question.materialId_id%}
+                          <tr>
+                          <th scope="row">{{question.id}}</th>
+                          <td>{{question.question_text}}</td>
+                          <td>{{m.material_title}}</td>
+                          <td>
+                            <!-- get wiki data  -->
+                            {%if options%}
+                            {%for option in options%}
+                            {%if option.questionId_id == question.id %}
+                            <button type="button" class="btn btn-round btn-info">{{option.optionText}}</button>
+                            {%endif%}
+                            {%endfor%}
+                            {%endif%}
+
+
+                          </td>
+                          <td>
+                            <div class="buttons">
+                              <a href="#"><button type="button" class="btn btn-success btn-xs">Edit</button></a><button type="button" class="btn btn-primary btn-xs">view</button> <button type="button" class="btn btn-danger btn-xs">delete</button>
+                            </div>
+                          </td>
+                          {%endif%}
+                          {%endfor%}
+                            </tr>
+                          {%endif%}
+
+                        {%endfor%}
+                        {%endif%}
+
+<!-- in this learning Path you will be learning servers recipes to cook delicious fast-food  -->
+                      </tbody>
+                    </table>
+                    <!--wiki data  -->
+
+                  </div>
+                </div>
+              </div>
+
+              <div class="clearfix"></div>
+                    <!-- end of table section  -->
+                </div>
+              </div>
+            </div>
+<!-- /page content -->
+<!--creat template  -->
+<!--end of block  -->
+<!--end of block  -->
+<!--end of block  -->
+{% endblock %}

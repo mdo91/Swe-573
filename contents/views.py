@@ -78,10 +78,10 @@ def create_content(request):
                 # wiki_topic_id = topic.id
                 # lesson = Lessons.objects
                 print(contentsByLesson)
-                lastlesson = lessonsByUser[-1]
-                # lastlesson
-                print("last lesson=====================")
-                print(lastlesson)
+                if lessonsByUser:
+                    lastlesson = lessonsByUser[-1]
+                else:
+                    lastlesson = lessonsByUser
 
                 return render(request,'contents_create.html',{'lessons':lessonsByTopic,'ls':lessonsByUser,'contentsbylesson':contentsByLesson,'lastlesson':lastlesson})
 
@@ -145,7 +145,10 @@ def create_content(request):
             # wiki_topic_id = topic.id
             # lesson = Lessons.objects
             print(contentsByLesson)
-            lastlesson = lessonsByUser[-1]
+            if lessonsByUser:
+                lastlesson = lessonsByUser[-1]
+            else:
+                lastlesson = lessonsByUser
             # lastlesson
             print("last lesson=====================")
             print(lastlesson)
